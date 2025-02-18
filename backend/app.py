@@ -4,6 +4,8 @@ from pymongo import MongoClient
 app = Flask(__name__)
 
 #connect to my mongo db database3
+#-------DONT FORGET TO REMOVE PASSWORD WHEN PUSHING!!!#-------
+#mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/
 client = MongoClient('mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/')
 db = client['hotspots']
 collection = db['hotspots_locations']
