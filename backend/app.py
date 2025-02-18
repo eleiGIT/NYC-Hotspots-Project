@@ -4,14 +4,13 @@ from pymongo import MongoClient
 app = Flask(__name__)
 
 #connect to my mongo db database3
-client = MongoClient('localhost', 27017)
-db = client['nyc_hotspots']
-collection = db['hotspots']
+client = MongoClient('mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/')
+db = client['hotspots']
+collection = db['hotspots_locations']
 
 #http://127.0.0.1:5000/api/hotspots to see list of hotspots#
 @app.route('/api/hotspots', methods = ['GET'])
 def get_hotspots():
-    print("hello")
     hotspots = list(collection.find({}, {'_id': 0}))
     return jsonify(hotspots)
 
