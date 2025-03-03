@@ -17,9 +17,13 @@
   align-items: start;
   flex-direction: column;
   background-color: gray;
+  width: 150px;
 }
 
-button {
-  width: 20px;
-  height: 20px;
+#typefilters {
+  /* display: flex; */
+  align-items: start;
+  flex-direction: column;
+  background-color: gray;
+  margin-left: 10px;
 }
