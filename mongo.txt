@@ -1,0 +1,10 @@
+import { MongoClient, ServerApiVersion } from "mongodb";
+
+const uri =
+  "[inputURL]";
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
+await client.connect();
