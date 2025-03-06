@@ -29,6 +29,7 @@ function App() {
 
   return (
     <div id="main">
+      <img src="./logo.jpg"></img>
       <input
         class="pure-input-rounded"
         placeholder="Enter your location"
@@ -48,7 +49,25 @@ function App() {
               onClick={moreProvider}
             ></input>
             <label for="provider">Provider</label>
-            {providerClick && <div>List providers here</div>}
+            {providerClick && (
+              <div id="providerfilters">
+                <input
+                  type="checkbox"
+                  id="provider1"
+                  name="provider1"
+                  onClick={dummyFunction}
+                ></input>
+                <label for="provider1">Provider1</label>
+                <br></br>
+                <input
+                  type="checkbox"
+                  id="provider2"
+                  name="provider2"
+                  onClick={dummyFunction}
+                ></input>
+                <label for="provider2">Provider2</label>
+              </div>
+            )}
           </div>
           <div>
             <input
