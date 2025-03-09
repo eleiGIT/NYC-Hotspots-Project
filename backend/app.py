@@ -7,7 +7,6 @@ app = Flask(__name__)
 #connect to my mongo db database3
 #-------DONT FORGET TO REMOVE PASSWORD WHEN PUSHING!!!#-------
 #mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/
-
 try:
     client = MongoClient('mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/?retryWrites=true&w=majority&tls=true', tlsCAFile=certifi.where())
     db = client['hotspots']
@@ -15,6 +14,7 @@ try:
     print("Connected to MongoDB")
 except Exception as e: 
     print(f"Failed to connect to Mongo DB: {e}")
+
 
 
 #fetches all hotspots on database. WHen user first enters the site
@@ -60,6 +60,7 @@ def get_hotspots_by_zip(zip_code):
             query["Type"] = type
 
         hotspots = list(collection.find(query, {'_id' : 0}))
+
 
         if not hotspots:
             return jsonify({"error": f"No hotspots with these filters found in {zip_code}"}), 404
