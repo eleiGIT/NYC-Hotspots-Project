@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 
+
+
 function App() {
   const [providerClick, setProviderClick] = useState(false);
   const [typeClick, setTypeClick] = useState(false);
@@ -79,7 +81,7 @@ function App() {
             )}
           </div>
         </div>
-        <img src="./test.PNG"></img>
+        <img src="nychotspot.png"></img>
       </div>
     </div>
   );
