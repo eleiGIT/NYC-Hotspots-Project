@@ -81,7 +81,7 @@ function App() {
             )}
           </div>
         </div>
-        <img src="nychotspot.png"></img>
+        <img src="/nychotspot.png"></img>
       </div>
     </div>
   );
