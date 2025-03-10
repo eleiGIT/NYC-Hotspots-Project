@@ -1,16 +1,19 @@
+import os
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 import certifi   
+from dotenv import load_dotenv
+
+load_dotenv('backend/.env.mongodb')
+mongo_uri = os.getenv("MONGODB_URI")
 
 app = Flask(__name__)
 
 #connect to my mongo db database3
-#-------DONT FORGET TO REMOVE PASSWORD WHEN PUSHING!!!#-------
-#mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/
 try:
-    client = MongoClient('mongodb+srv://edmondlei48:<PASSWORD>@cluster0.8rrzt.mongodb.net/?retryWrites=true&w=majority&tls=true', tlsCAFile=certifi.where())
+    client = MongoClient(mongo_uri, tlsCAFile=certifi.where())
     db = client['hotspots']
-    collection = db['hotspots_locations']
+    collection = db['Filtered_Hotspot_data']
     print("Connected to MongoDB")
 except Exception as e: 
     print(f"Failed to connect to Mongo DB: {e}")
