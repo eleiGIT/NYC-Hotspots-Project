@@ -1,5 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import Map from "./Map";
+
+
 
 function App() {
   const [providerClick, setProviderClick] = useState(false);
@@ -79,7 +82,7 @@ function App() {
             )}
           </div>
         </div>
-        <img src="./test.PNG"></img>
+        <Map />
       </div>
     </div>
   );
