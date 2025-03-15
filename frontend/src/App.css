@@ -27,3 +27,16 @@
   background-color: gray;
   margin-left: 10px;
 }
+
+#providerfilters {
+  /* display: flex; */
+  align-items: start;
+  flex-direction: column;
+  background-color: gray;
+  margin-left: 10px;
+}
+
+#map {
+  height: 1000px;
+  width: 1000px;
+}
