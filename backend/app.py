@@ -5,9 +5,22 @@ import certifi
 from dotenv import load_dotenv
 
 load_dotenv('backend/.env.mongodb')
+# load_dotenv('backend/.env')
 mongo_uri = os.getenv("MONGODB_URI")
 
 app = Flask(__name__)
+
+#landing page
+@app.route('/')
+def landing_page():
+    return '''
+        <html>
+            <body>
+                <h1>Landing page for NYC Hotspots.</h1>
+                <p>Click <a href="http://localhost:5000/api/hotspots">here</a> to see all hotspots.</p>
+            <body>
+        <html>
+'''
 
 #connect to my mongo db database3
 try:
