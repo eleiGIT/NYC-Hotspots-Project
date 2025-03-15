@@ -2,13 +2,22 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Map from "./Map";
 
-
-
 function App() {
   const [providerClick, setProviderClick] = useState(false);
   const [typeClick, setTypeClick] = useState(false);
   const [showUnlimited, setShowUnlimited] = useState(false);
   const [showLimited, setShowLimited] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/hotspots")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("im working");
+        setData(data);
+        console.log(data);
+      });
+  }, []);
 
   const dummyFunction = async () => {
     //PLACEHOLDER
@@ -34,7 +43,7 @@ function App() {
     <div id="main">
       <img src="./logo.jpg"></img>
       <input
-        class="pure-input-rounded"
+        className="pure-input-rounded"
         placeholder="Enter your location"
         type="text"
         id="input"
@@ -51,7 +60,7 @@ function App() {
               name="provider"
               onClick={moreProvider}
             ></input>
-            <label for="provider">Provider</label>
+            <label htmlFor="provider">Provider</label>
             {providerClick && (
               <div id="providerfilters">
                 <input
@@ -60,7 +69,7 @@ function App() {
                   name="provider1"
                   onClick={dummyFunction}
                 ></input>
-                <label for="provider1">Provider1</label>
+                <label htmlFor="provider1">Provider1</label>
                 <br></br>
                 <input
                   type="checkbox"
@@ -68,7 +77,7 @@ function App() {
                   name="provider2"
                   onClick={dummyFunction}
                 ></input>
-                <label for="provider2">Provider2</label>
+                <label htmlFor="provider2">Provider2</label>
               </div>
             )}
           </div>
@@ -79,7 +88,7 @@ function App() {
               name="type"
               onClick={moreType}
             ></input>
-            <label for="type">Type</label>
+            <label htmlFor="type">Type</label>
             {typeClick && (
               <div id="typefilters">
                 <input
@@ -88,7 +97,7 @@ function App() {
                   name="type1"
                   onClick={dummyFunction}
                 ></input>
-                <label for="type1">Unlimited</label>
+                <label htmlFor="type1">Unlimited</label>
                 <br></br>
                 <input
                   type="checkbox"
@@ -96,12 +105,12 @@ function App() {
                   name="type2"
                   onClick={dummyFunction}
                 ></input>
-                <label for="type2">Limited</label>
+                <label htmlFor="type2">Limited</label>
               </div>
             )}
           </div>
         </div>
-        <Map />
+        <Map markerData={data} />
       </div>
     </div>
   );
