@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv('backend/.env.mongodb')
 mongo_uri = os.getenv("MONGODB_URI")
+print("LOADED URI: " + mongo_uri)
 
 app = Flask(__name__)
 
@@ -17,7 +18,6 @@ try:
     print("Connected to MongoDB")
 except Exception as e: 
     print(f"Failed to connect to Mongo DB: {e}")
-
 
 
 #fetches all hotspots on database. WHen user first enters the site
