@@ -1,7 +1,7 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { icon } from "leaflet";
+import { icon, marker } from "leaflet";
 
 const position = [40.71427, -74.00597];
 
@@ -13,6 +13,7 @@ const customIcon = new icon({
 const Map = ({ markerData }) => {
   return (
     <MapContainer
+      preferCanvas={true}
       center={position}
       zoom={13}
       style={{ height: "1000px", width: "100%" }}
@@ -24,7 +25,8 @@ const Map = ({ markerData }) => {
       />
 
       {/* slice(0,100) for first 100 objects as too many obj causes lag */}
-      {markerData.slice(0, 100).map((marker, i) => (
+      {/* {marker.slice(0, 100).map((marker, i) => */}
+      {markerData.map((marker, i) => (
         <Marker
           key={i}
           position={[marker.Latitude, marker.Longitude]}
