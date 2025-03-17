@@ -40,3 +40,36 @@
   height: 1000px;
   width: 1000px;
 }
+
+#provider {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+#type {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+#arrow {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+#arrow:before {
+  content: "▶";
+}
+
+#provider:checked ~ #arrow:before {
+  content: "▼";
+}
+
+#type:checked ~ #arrow:before {
+  content: "▼";
+}

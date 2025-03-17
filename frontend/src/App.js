@@ -60,7 +60,9 @@ function App() {
               name="provider"
               onClick={moreProvider}
             ></input>
-            <label htmlFor="provider">Provider</label>
+            <label htmlFor="provider" id="arrow">
+              Provider
+            </label>
             {providerClick && (
               <div id="providerfilters">
                 <input
@@ -88,7 +90,9 @@ function App() {
               name="type"
               onClick={moreType}
             ></input>
-            <label htmlFor="type">Type</label>
+            <label htmlFor="type" id="arrow">
+              Type
+            </label>
             {typeClick && (
               <div id="typefilters">
                 <input
