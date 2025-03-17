@@ -4,9 +4,8 @@ from pymongo import MongoClient
 import certifi   
 from dotenv import load_dotenv
 
-load_dotenv('backend/.env.mongodb')
-mongo_uri = os.getenv("MONGODB_URI")
-print("LOADED URI: " + mongo_uri)
+load_dotenv()
+mongo_uri = os.getenv('MONGO_URI')
 
 app = Flask(__name__)
 
