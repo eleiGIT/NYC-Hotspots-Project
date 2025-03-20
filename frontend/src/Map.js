@@ -30,8 +30,10 @@ const Map = ({ markerData }) => {
           position={[marker.Latitude, marker.Longitude]}
           icon={customIcon}
         >
+          {/*popup markers*/}
           <Popup>
-            <strong>Location:</strong> {marker.Latitude}, {marker.Longitude} <br />
+            <strong>Location:</strong> {marker.Location}, {marker.Postcode}<br />
+            <strong>Wifi:</strong> {marker.SSID}, {marker.Type} <br />
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${marker.Latitude},${marker.Longitude}`}
               target="_blank"
