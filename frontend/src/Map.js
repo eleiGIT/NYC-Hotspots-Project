@@ -29,7 +29,18 @@ const Map = ({ markerData }) => {
           key={i}
           position={[marker.Latitude, marker.Longitude]}
           icon={customIcon}
-        ></Marker>
+        >
+          <Popup>
+            <strong>Location:</strong> {marker.Latitude}, {marker.Longitude} <br />
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${marker.Latitude},${marker.Longitude}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open in Google Maps
+            </a>
+          </Popup>
+        </Marker>
       ))}
     </MapContainer>
   );
