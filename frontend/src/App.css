@@ -73,3 +73,15 @@
 #type:checked ~ #arrow:before {
   content: "▼";
 }
+
+.cluster-icon {
+  height: 3vh;
+  width: 3vh;
+  border-radius: 50%;
+  background-color: rgb(175, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transform: translate(-25%, -25%);
+}
