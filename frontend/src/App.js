@@ -25,7 +25,12 @@ function App() {
 
   const submitZip = async () => {
     const inputData = input;
-    console.log(inputData);
+    fetch(`/api/hotspots/zip/${inputData}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        console.log(data);
+      });
     setInput("");
   };
 
