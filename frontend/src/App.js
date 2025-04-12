@@ -8,12 +8,12 @@ function App() {
   const [showUnlimited, setShowUnlimited] = useState(false);
   const [showLimited, setShowLimited] = useState(false);
   const [data, setData] = useState([]);
+  const [input, setInput] = useState("");
 
   useEffect(() => {
     fetch("/api/hotspots")
       .then((res) => res.json())
       .then((data) => {
-        console.log("im working");
         setData(data);
         console.log(data);
       });
@@ -21,6 +21,17 @@ function App() {
 
   const dummyFunction = async () => {
     //PLACEHOLDER
+  };
+
+  const submitZip = async () => {
+    const inputData = input;
+    fetch(`/api/hotspots/zip/${inputData}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        console.log(data);
+      });
+    setInput("");
   };
 
   const moreProvider = async () => {
@@ -44,10 +55,14 @@ function App() {
       <img src="./logo.jpg"></img>
       <input
         className="pure-input-rounded"
-        placeholder="Enter your location"
+        placeholder="Enter your zip code"
         type="text"
         id="input"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        maxLength={5}
       ></input>
+      <button onClick={submitZip}>Submit</button>
       <div id="map">
         <div id="filter">
           <div>
