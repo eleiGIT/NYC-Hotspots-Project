@@ -30,7 +30,6 @@ try:
     db = client['hotspots']
     collection = db['Filtered_Hotspot_data']
 
-    collection.create_index([("location", "2dsphere")]) #maybe
 
     print("Connected to MongoDB")
 except Exception as e: 
