@@ -79,24 +79,145 @@ function App() {
               Provider
             </label>
             {providerClick && (
-              <div id="providerfilters">
+            <div id="providerfilters">
+              <div>
                 <input
-                  type="checkbox"
-                  id="provider1"
-                  name="provider1"
-                  onClick={dummyFunction}
-                ></input>
-                <label htmlFor="provider1">Provider1</label>
-                <br></br>
-                <input
-                  type="checkbox"
-                  id="provider2"
-                  name="provider2"
-                  onClick={dummyFunction}
-                ></input>
-                <label htmlFor="provider2">Provider2</label>
+                type="checkbox"
+                id="ALTICEUSA"
+                name="ALTICEUSA"
+                onClick={dummyFunction} />
+                <label htmlFor="ALTICEUSA">ALTICEUSA</label>
               </div>
-            )}
+              <div>
+                <input
+                type="checkbox"
+                id="AT&T"
+                name="AT&T"
+                onClick={dummyFunction} />
+                <label htmlFor="AT&T">AT&T</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="BPL"
+                name="BPL"
+                onClick={dummyFunction} />
+                <label htmlFor="BPL">BPL</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Chelsea"
+                name="Chelsea"
+                onClick={dummyFunction} />
+                <label htmlFor="Chelsea">Chelsea</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="City Tech"
+                name="City Tech"
+                onClick={dummyFunction} />
+                <label htmlFor="City Tech">City Tech</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Downtown Brooklyn"
+                name="Downtown Brooklyn"
+                onClick={dummyFunction} />
+                <label htmlFor="Downtown Brooklyn">Downtown Brooklyn</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Fiberless"
+                name="Fiberless"
+                onClick={dummyFunction} />
+                <label htmlFor="Fiberless">Fiberless</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Harlem"
+                name="Harlem"
+                onClick={dummyFunction} />
+                <label htmlFor="Harlem">Harlem</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="LinkNYC - Citybridge"
+                name="LinkNYC - Citybridge"
+                onClick={dummyFunction} />
+                <label htmlFor="LinkNYC - Citybridge">LinkNYC - Citybridge</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Manhattan Down Alliance"
+                name="Manhattan Down Alliance"
+                onClick={dummyFunction} />
+                <label htmlFor="Manhattan Down Alliance">Manhattan Down Alliance</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="NYCHA"
+                name="NYCHA"
+                onClick={dummyFunction} />
+                <label htmlFor="NYCHA">NYCHA</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="NYPL"
+                name="NYPL"
+                onClick={dummyFunction} />
+                <label htmlFor="NYPL">NYPL</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Partner"
+                name="Partner"
+                onClick={dummyFunction} />
+                <label htmlFor="Partner">Partner</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="QPL"
+                name="QPL"
+                onClick={dummyFunction} />
+                <label htmlFor="QPL">QPL</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="SPECTRUM"
+                name="SPECTRUM"
+                onClick={dummyFunction} />
+                <label htmlFor="SPECTRUM">SPECTRUM</label>
+              </div>
+              <div>
+                <input
+                type="checkbox"
+                id="Spot On Networks"
+                name="Spot On Networks"
+                onClick={dummyFunction} />
+                <label htmlFor="Spot On Networks">Spot On Networks</label>
+              </div>
+              <div>
+                <input 
+                type="checkbox"
+                id="Transit Wireless"
+                name="Transit Wireless"
+                onClick={dummyFunction} />
+                <label htmlFor="Transit Wireless">Transit Wireless</label>
+              </div>
+            </div>
+          )}
           </div>
           <div>
             <input
@@ -112,19 +233,27 @@ function App() {
               <div id="typefilters">
                 <input
                   type="checkbox"
-                  id="type1"
-                  name="type1"
+                  id="Free"
+                  name="Free"
                   onClick={dummyFunction}
                 ></input>
-                <label htmlFor="type1">Unlimited</label>
+                <label htmlFor="Free">Free</label>
                 <br></br>
                 <input
                   type="checkbox"
-                  id="type2"
-                  name="type2"
+                  id="Limited Free"
+                  name="Limited Free"
                   onClick={dummyFunction}
                 ></input>
-                <label htmlFor="type2">Limited</label>
+                <label htmlFor="Limited Free">Limited Free</label>
+                <br></br>
+                <input
+                  type="checkbox"
+                  id="Partner Site"
+                  name="Partner Site"
+                  onClick={dummyFunction}
+                ></input>
+                <label htmlFor="Partner Site">Partner Site</label>
               </div>
             )}
           </div>
