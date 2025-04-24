@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import userImage from './assets/user.png';
+import userImage from "./assets/user.png";
 import { divIcon, icon, marker } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { useGeolocated } from "react-geolocated";
@@ -27,14 +27,17 @@ const customClusterIcon = (cluster) => {
 };
 
 const Map = memo(({ markerData }) => {
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
-    positionOptions: { enableHighAccuracy: true },
-    watchLocation: true,
-    userDecisionTimeout: 5000,
-  });
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: { enableHighAccuracy: true },
+      watchLocation: true,
+      userDecisionTimeout: 5000,
+    });
 
-  const userCoords = coords ? [coords.latitude, coords.longitude] : defaultPosition;
-  
+  const userCoords = coords
+    ? [coords.latitude, coords.longitude]
+    : defaultPosition;
+
   return (
     <MapContainer
       preferCanvas={true}
@@ -62,7 +65,7 @@ const Map = memo(({ markerData }) => {
       {/* slice(0,100) for first 100 objects as too many obj causes lag */}
       {/* {marker.slice(0, 100).map((marker, i) => */}
       <MarkerClusterGroup chunkedLoading iconCreateFunction={customClusterIcon}>
-        {markerData.map((marker, i) => (
+        {(Array.isArray(markerData) ? markerData : []).map((marker, i) => (
           <Marker
             key={i}
             position={[marker.Latitude, marker.Longitude]}
