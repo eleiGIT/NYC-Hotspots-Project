@@ -129,6 +129,7 @@ function App() {
   return (
     <div id="main">
       <img src="./logo.jpg"></img>
+      <div id="submit">
       <input
         className="pure-input-rounded"
         placeholder="Enter your zip code"
@@ -139,6 +140,7 @@ function App() {
         maxLength={5}
       ></input>
       <button onClick={submitZip}>Submit</button>
+      </div>
       <div id="map">
         <div id="filter">
           <div>
