@@ -43,7 +43,7 @@ const Map = memo(({ markerData }) => {
       preferCanvas={true}
       center={position}
       zoom={13}
-      style={{ height: "1000px", width: "100%" }}
+      style={{ height: "750px", width: "750px" }}
     >
       {/* OpenStreetMap Tile Layer */}
       <TileLayer
