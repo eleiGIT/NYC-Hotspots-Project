@@ -130,23 +130,21 @@ function App() {
     <div id="main">
       <img src="./logo.jpg"></img>
       <div id="submit">
-      <input
-        className="pure-input-rounded"
-        placeholder="Enter your zip code"
-        type="text"
-        id="input"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        maxLength={5}
-      ></input>
-      <button onClick={submitZip}>Submit</button>
+        <input
+          className="pure-input-rounded"
+          placeholder="Enter your zip code"
+          type="text"
+          id="input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          maxLength={5}
+        ></input>
+        <button onClick={submitZip}>Submit</button>
       </div>
       <div id="map">
         <div id="filter">
           <div>
-            {" "}
-            Filters
-            <br></br>
+            <div id="flist">Filters</div>
             <input
               type="checkbox"
               id="provider"
@@ -330,29 +328,35 @@ function App() {
             </label>
             {typeClick && (
               <div id="typefilters">
-                <input
-                  type="checkbox"
-                  id="Free"
-                  name="Free"
-                  onClick={thandleFilters}
-                ></input>
-                <label htmlFor="Free">Free</label>
-                <br></br>
-                <input
-                  type="checkbox"
-                  id="Limited Free"
-                  name="Limited Free"
-                  onClick={thandleFilters}
-                ></input>
-                <label htmlFor="Limited Free">Limited Free</label>
-                <br></br>
-                <input
-                  type="checkbox"
-                  id="Partner Site"
-                  name="Partner Site"
-                  onClick={thandleFilters}
-                ></input>
-                <label htmlFor="Partner Site">Partner Site</label>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="Free"
+                    name="Free"
+                    onClick={thandleFilters}
+                  ></input>
+                  <label htmlFor="Free">Free</label>
+                  <br></br>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="Limited Free"
+                    name="Limited Free"
+                    onClick={thandleFilters}
+                  ></input>
+                  <label htmlFor="Limited Free">Limited Free</label>
+                  <br></br>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="Partner Site"
+                    name="Partner Site"
+                    onClick={thandleFilters}
+                  ></input>
+                  <label htmlFor="Partner Site">Partner Site</label>
+                </div>
               </div>
             )}
           </div>
