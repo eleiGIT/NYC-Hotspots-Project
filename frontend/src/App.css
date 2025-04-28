@@ -4,7 +4,8 @@
   align-items: center;
   flex-direction: column;
   align-self: center;
-  height: 1000px;
+  height: 100%;
+  background-color: gray;
 }
 
 #map {
@@ -84,4 +85,8 @@
   align-items: center;
   color: white;
   transform: translate(-25%, -25%);
+}
+
+.submit {
+  display: flex;
 }
