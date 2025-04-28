@@ -128,7 +128,7 @@ function App() {
 
   return (
     <div id="main">
-      <img src="./logo.jpg"></img>
+      <img src="./logo.png"></img>
       <div id="submit">
         <input
           className="pure-input-rounded"
