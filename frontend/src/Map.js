@@ -88,7 +88,7 @@ const Map = memo(({ markerData }) => {
         ))}
       </MarkerClusterGroup>
     </MapContainer>
-  );
+  );  
 });
 
 export default Map;
