@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(45, 45, 45);
+}
+
 #main {
   display: flex;
   justify-content: center;
