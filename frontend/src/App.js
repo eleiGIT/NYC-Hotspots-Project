@@ -10,15 +10,53 @@ function App() {
   const [pFilters, setpFilters] = useState([]);
   const [tFilters, settFilters] = useState([]);
   const [zip, setZip] = useState("");
+  const [coords, setCoords] = useState([null, null]);
+  const [hasCoords, setTFCoords] = useState(null);
 
   useEffect(() => {
-    fetch("/api/hotspots")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        console.log(data);
-      });
+    if (!hasCoords) {
+      fetch("/api/hotspots")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+          console.log(data);
+        })
+        .catch((e) => {
+          console.error(e);
+          setData([]);
+        });
+    }
   }, []);
+
+  useEffect(() => {
+    if (coords[0] != null && coords[1] != null) {
+      console.log("usercoords in app.js:", coords);
+      setTFCoords(true);
+    }
+  }, [coords]);
+
+  useEffect(() => {
+    if (hasCoords) {
+      setTimeout(() => {
+        let params = new URLSearchParams({
+          lat: coords[0],
+          long: coords[1],
+        }).toString();
+
+        fetch(`/api/hotspots/nearby?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log("nearby");
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      }, 1000);
+    }
+  }, [hasCoords]);
 
   const thandleFilters = (e) => {
     const { id } = e.target;
@@ -80,24 +118,48 @@ function App() {
   };
 
   useEffect(() => {
-    const params = new URLSearchParams({
-      provider: pFilters.join(","),
-      type: tFilters.join(","),
-    }).toString();
+    console.log("hasCoords =", hasCoords);
+  }, [hasCoords]);
 
-    if (zip) {
-      fetch(`/api/hotspots/zip/${zip}?${params}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          console.log(data);
-        })
-        .catch((e) => {
-          console.error(e);
-          setData([]);
-        });
+  useEffect(() => {
+    if (!hasCoords) {
+      const params = new URLSearchParams({
+        provider: pFilters.join(","),
+        type: tFilters.join(","),
+      }).toString();
+
+      if (zip) {
+        fetch(`/api/hotspots/zip/${zip}?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      } else {
+        fetch(`/api/hotspots?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      }
     } else {
-      fetch(`/api/hotspots?${params}`)
+      const params = new URLSearchParams({
+        lat: coords[0],
+        long: coords[1],
+        provider: pFilters.join(","),
+        type: tFilters.join(","),
+      }).toString();
+
+      fetch(`/api/hotspots/nearby?${params}`)
         .then((res) => res.json())
         .then((data) => {
           setData(data);
@@ -361,7 +423,7 @@ function App() {
             )}
           </div>
         </div>
-        <Map markerData={data} />
+        <Map markerData={data} set_user_coords={setCoords} />
       </div>
     </div>
   );
