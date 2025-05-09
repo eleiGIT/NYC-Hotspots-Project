@@ -13,20 +13,6 @@ function App() {
   const [coords, setCoords] = useState([null, null]);
   const [hasCoords, setTFCoords] = useState(null);
 
-  useEffect(() => {
-    if (!hasCoords) {
-      fetch("/api/hotspots")
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          console.log(data);
-        })
-        .catch((e) => {
-          console.error(e);
-          setData([]);
-        });
-    }
-  }, []);
 
   useEffect(() => {
     if (coords[0] != null && coords[1] != null) {
