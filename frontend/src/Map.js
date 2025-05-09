@@ -43,6 +43,13 @@ const Map = memo(({ markerData, set_user_coords }) => {
   const userCoords = coords
     ? [coords.latitude, coords.longitude]
     : defaultPosition;
+  const hotspotList = Array.isArray(markerData) ? markerData.slice(0, 10) : [];
+
+  useEffect(() => {
+    if (!isGeolocationAvailable || !isGeolocationEnabled)
+      alert("Geolocation is not enabled or available.");
+  }, [isGeolocationAvailable, isGeolocationEnabled]);
+  
 
 
     return (
