@@ -10,7 +10,39 @@ function App() {
   const [pFilters, setpFilters] = useState([]);
   const [tFilters, settFilters] = useState([]);
   const [zip, setZip] = useState("");
+  const [coords, setCoords] = useState([null, null]);
+  const [hasCoords, setTFCoords] = useState(null);
 
+
+  useEffect(() => {
+    if (coords[0] != null && coords[1] != null) {
+      console.log("usercoords in app.js:", coords);
+      setTFCoords(true);
+    }
+  }, [coords]);
+
+  useEffect(() => {
+    if (hasCoords) {
+      setTimeout(() => {
+        let params = new URLSearchParams({
+          lat: coords[0],
+          long: coords[1],
+        }).toString();
+
+        fetch(`/api/hotspots/nearby?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log("nearby");
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      }, 1000);
+    }
+  }, [hasCoords]);
 
   const thandleFilters = (e) => {
     const { id } = e.target;
@@ -72,24 +104,48 @@ function App() {
   };
 
   useEffect(() => {
-    const params = new URLSearchParams({
-      provider: pFilters.join(","),
-      type: tFilters.join(","),
-    }).toString();
+    console.log("hasCoords =", hasCoords);
+  }, [hasCoords]);
 
-    if (zip) {
-      fetch(`/api/hotspots/zip/${zip}?${params}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          console.log(data);
-        })
-        .catch((e) => {
-          console.error(e);
-          setData([]);
-        });
+  useEffect(() => {
+    if (!hasCoords) {
+      const params = new URLSearchParams({
+        provider: pFilters.join(","),
+        type: tFilters.join(","),
+      }).toString();
+
+      if (zip) {
+        fetch(`/api/hotspots/zip/${zip}?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      } else {
+        fetch(`/api/hotspots?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      }
     } else {
-      fetch(`/api/hotspots?${params}`)
+      const params = new URLSearchParams({
+        lat: coords[0],
+        long: coords[1],
+        provider: pFilters.join(","),
+        type: tFilters.join(","),
+      }).toString();
+
+      fetch(`/api/hotspots/nearby?${params}`)
         .then((res) => res.json())
         .then((data) => {
           setData(data);
@@ -120,23 +176,23 @@ function App() {
 
   return (
     <div id="main">
-      <img src="./logo.jpg"></img>
-      <input
-        className="pure-input-rounded"
-        placeholder="Enter your zip code"
-        type="text"
-        id="input"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        maxLength={5}
-      ></input>
-      <button onClick={submitZip}>Submit</button>
+      <img src="./logo.png"></img>
+      <div id="submit">
+        <input
+          className="pure-input-rounded"
+          placeholder="Enter your zip code"
+          type="text"
+          id="input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          maxLength={5}
+        ></input>
+        <button onClick={submitZip}>Submit</button>
+      </div>
       <div id="map">
         <div id="filter">
           <div>
-            {" "}
-            Filters
-            <br></br>
+            <div id="flist">Filters</div>
             <input
               type="checkbox"
               id="provider"
@@ -320,34 +376,40 @@ function App() {
             </label>
             {typeClick && (
               <div id="typefilters">
-                <input
-                  type="checkbox"
-                  id="Free"
-                  name="Free"
-                  onClick={thandleFilters}
-                ></input>
-                <label htmlFor="Free">Free</label>
-                <br></br>
-                <input
-                  type="checkbox"
-                  id="Limited Free"
-                  name="Limited Free"
-                  onClick={thandleFilters}
-                ></input>
-                <label htmlFor="Limited Free">Limited Free</label>
-                <br></br>
-                <input
-                  type="checkbox"
-                  id="Partner Site"
-                  name="Partner Site"
-                  onClick={thandleFilters}
-                ></input>
-                <label htmlFor="Partner Site">Partner Site</label>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="Free"
+                    name="Free"
+                    onClick={thandleFilters}
+                  ></input>
+                  <label htmlFor="Free">Free</label>
+                  <br></br>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="Limited Free"
+                    name="Limited Free"
+                    onClick={thandleFilters}
+                  ></input>
+                  <label htmlFor="Limited Free">Limited Free</label>
+                  <br></br>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="Partner Site"
+                    name="Partner Site"
+                    onClick={thandleFilters}
+                  ></input>
+                  <label htmlFor="Partner Site">Partner Site</label>
+                </div>
               </div>
             )}
           </div>
         </div>
-        <Map markerData={data} />
+        <Map markerData={data} set_user_coords={setCoords} />
       </div>
     </div>
   );

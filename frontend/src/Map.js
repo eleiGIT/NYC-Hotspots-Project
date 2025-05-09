@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import userImage from "./assets/user.png";
@@ -26,7 +26,7 @@ const customClusterIcon = (cluster) => {
   });
 };
 
-const Map = memo(({ markerData }) => {
+const Map = memo(({ markerData, set_user_coords }) => {
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: { enableHighAccuracy: true },
@@ -34,11 +34,16 @@ const Map = memo(({ markerData }) => {
       userDecisionTimeout: 5000,
     });
 
+  useEffect(() => {
+    if (coords) {
+      set_user_coords([coords.latitude, coords.longitude]);
+    }
+  }, [coords]);
+
   const userCoords = coords
     ? [coords.latitude, coords.longitude]
     : defaultPosition;
 
-  const hotspotList = Array.isArray(markerData) ? markerData.slice(0, 10) : [];
 
     return (
       <div className="map-container">
