@@ -11,36 +11,6 @@ function App() {
   const [tFilters, settFilters] = useState([]);
   const [zip, setZip] = useState("");
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        fetch(`/api/hotspots/nearby?lat=${latitude}&lng=${longitude}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setData(data);
-            console.log(data);
-          })
-          .catch((e) => {
-            console.error(e);
-            setData([]);
-          });
-      },
-       (error) => {
-        console.error(error);
-        fetch("/api/hotspots")
-          .then((res) => res.json())
-          .then((data) => {
-            setData(data);
-            console.log(data);
-          })
-          .catch((e) => {
-            console.error(e);
-            setData([]);
-          });
-      }
-    );
-  }, []);
 
   const thandleFilters = (e) => {
     const { id } = e.target;
