@@ -59,7 +59,7 @@ const Map = memo(({ markerData, set_user_coords }) => {
           preferCanvas={true}
           center={position}
           zoom={13}
-          style={{ height: "600px", width: "100%" }}
+          style={{ height: "750px", width: "750px" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -104,7 +104,7 @@ const Map = memo(({ markerData, set_user_coords }) => {
   
         {/* Hotspot List */}
         <div className="hotspot-list">
-          <h2>Hotspots Lisitng</h2>
+          <h2>Hotspots Listing</h2>
           <ul>
             {hotspotList.map((marker, index) => (
               <li key={index}>
