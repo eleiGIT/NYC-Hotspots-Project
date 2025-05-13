@@ -111,3 +111,12 @@ img {
   height: 100%;
   width: 100%;
 }
+
+.hotspot-list {
+  background-color: gray;
+  border-radius: 5px 5px 5px 5px;
+}
+
+h2 {
+  margin-left: 5px;
+}
