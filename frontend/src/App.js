@@ -27,7 +27,7 @@ function App() {
         });
     }
   }, []);
-
+  
   useEffect(() => {
     if (coords[0] != null && coords[1] != null) {
       console.log("usercoords in app.js:", coords);
