@@ -15,11 +15,13 @@ function App() {
 
   useEffect(() => {
     if (!hasCoords) {
+      console.log(hasCoords);
       fetch("/api/hotspots")
         .then((res) => res.json())
         .then((data) => {
           setData(data);
           console.log(data);
+          console.log("ran");
         })
         .catch((e) => {
           console.error(e);
@@ -27,7 +29,7 @@ function App() {
         });
     }
   }, []);
-  
+
   useEffect(() => {
     if (coords[0] != null && coords[1] != null) {
       console.log("usercoords in app.js:", coords);
@@ -145,6 +147,7 @@ function App() {
           .then((data) => {
             setData(data);
             console.log(data);
+            console.log("i ran");
           })
           .catch((e) => {
             console.error(e);
@@ -152,23 +155,41 @@ function App() {
           });
       }
     } else {
-      const params = new URLSearchParams({
-        lat: coords[0],
-        long: coords[1],
-        provider: pFilters.join(","),
-        type: tFilters.join(","),
-      }).toString();
+      if (zip) {
+        const params = new URLSearchParams({
+          provider: pFilters.join(","),
+          type: tFilters.join(","),
+        }).toString();
 
-      fetch(`/api/hotspots/nearby?${params}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          console.log(data);
-        })
-        .catch((e) => {
-          console.error(e);
-          setData([]);
-        });
+        fetch(`/api/hotspots/zip/${zip}?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      } else {
+        const params = new URLSearchParams({
+          lat: coords[0],
+          long: coords[1],
+          provider: pFilters.join(","),
+          type: tFilters.join(","),
+        }).toString();
+
+        fetch(`/api/hotspots/nearby?${params}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            console.log(data);
+          })
+          .catch((e) => {
+            console.error(e);
+            setData([]);
+          });
+      }
     }
   }, [pFilters, tFilters]);
 
