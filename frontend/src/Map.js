@@ -45,8 +45,6 @@ const Map = memo(({ markerData, set_user_coords }) => {
     ? [coords.latitude, coords.longitude]
     : defaultPosition;
 
-  const hotspotList = Array.isArray(markerData) ? markerData.slice(0, 10) : [];
-
   useEffect(() => {
     if (!isGeolocationAvailable || !isGeolocationEnabled)
       alert("Geolocation is not enabled or available.");
@@ -74,14 +72,16 @@ const Map = memo(({ markerData, set_user_coords }) => {
             </Popup>
           </Marker>
         ) : (
-          alert("Geolocation is not enabled or available.")
+          //DO NOT REMOVE
+          console.log("This message is logged to prevent multiple alerts.")
+          // alert("Geolocation is not enabled or available.")
         )}
 
         <MarkerClusterGroup
           chunkedLoading
           iconCreateFunction={customClusterIcon}
         >
-          {hotspotList.map((marker, i) => (
+          {(Array.isArray(markerData) ? markerData : []).map((marker, i) => (
             <Marker
               key={i}
               position={[marker.Latitude, marker.Longitude]}
@@ -108,13 +108,15 @@ const Map = memo(({ markerData, set_user_coords }) => {
       <div className="hotspot-list">
         <h2>Hotspots Listing</h2>
         <ul>
-          {hotspotList.map((marker, index) => (
-            <li key={index}>
-              <strong>{marker.SSID}</strong> - {marker.Location},{" "}
-              {marker.Postcode} <br />
-              <span>Provider: {marker.Type}</span>
-            </li>
-          ))}
+          {(Array.isArray(markerData) ? markerData : [])
+            .slice(0, 10)
+            .map((marker, index) => (
+              <li key={index}>
+                <strong>{marker.SSID}</strong> - {marker.Location},{" "}
+                {marker.Postcode} <br />
+                <span>Provider: {marker.Type}</span>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
