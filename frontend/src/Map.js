@@ -1,10 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import userImage from './assets/user.png';
+import userImage from "./assets/user.png";
 import { divIcon, icon, marker } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { useGeolocated } from "react-geolocated";
+import "./App.css";
 
 const position = [40.71427, -74.00597];
 const defaultPosition = [40.71427, -74.00597];
@@ -26,65 +27,97 @@ const customClusterIcon = (cluster) => {
   });
 };
 
-const Map = memo(({ markerData }) => {
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
-    positionOptions: { enableHighAccuracy: true },
-    watchLocation: true,
-    userDecisionTimeout: 5000,
-  });
+const Map = memo(({ markerData, set_user_coords }) => {
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: { enableHighAccuracy: true },
+      watchLocation: true,
+      userDecisionTimeout: 5000,
+    });
 
-  const userCoords = coords ? [coords.latitude, coords.longitude] : defaultPosition;
-  
+  useEffect(() => {
+    if (coords) {
+      set_user_coords([coords.latitude, coords.longitude]);
+    }
+  }, [coords]);
+
+  const userCoords = coords
+    ? [coords.latitude, coords.longitude]
+    : defaultPosition;
+
+  const hotspotList = Array.isArray(markerData) ? markerData.slice(0, 10) : [];
+
+  useEffect(() => {
+    if (!isGeolocationAvailable || !isGeolocationEnabled)
+      alert("Geolocation is not enabled or available.");
+  }, [isGeolocationAvailable, isGeolocationEnabled]);
+
   return (
-    <MapContainer
-      preferCanvas={true}
-      center={position}
-      zoom={13}
-      style={{ height: "1000px", width: "100%" }}
-    >
-      {/* OpenStreetMap Tile Layer */}
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {/* User Location Marker */}
-      {isGeolocationAvailable && isGeolocationEnabled ? (
-        <Marker position={userCoords} icon={userIcon}>
-          <Popup>
-            <strong>Location:</strong> {userCoords[0]}, {userCoords[1]}
-            <br />
-            You are here!
-          </Popup>
-        </Marker>
-      ) : (
-        alert("Geolocation is not enabled or available.")
-      )}
-      {/* slice(0,100) for first 100 objects as too many obj causes lag */}
-      {/* {marker.slice(0, 100).map((marker, i) => */}
-      <MarkerClusterGroup chunkedLoading iconCreateFunction={customClusterIcon}>
-        {markerData.map((marker, i) => (
-          <Marker
-            key={i}
-            position={[marker.Latitude, marker.Longitude]}
-            icon={customIcon}
-          >
-            {/*popup markers*/}
+    <div className="map-container">
+      <MapContainer
+        preferCanvas={true}
+        center={position}
+        zoom={13}
+        style={{ height: "750px", width: "750px" }}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+
+        {isGeolocationAvailable && isGeolocationEnabled ? (
+          <Marker position={userCoords} icon={userIcon}>
             <Popup>
-              <strong>Location:</strong> {marker.Location}, {marker.Postcode}
+              <strong>Location:</strong> {userCoords[0]}, {userCoords[1]}
               <br />
-              <strong>Wifi:</strong> {marker.SSID}, {marker.Type} <br />
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${marker.Latitude},${marker.Longitude}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open in Google Maps
-              </a>
+              You are here!
             </Popup>
           </Marker>
-        ))}
-      </MarkerClusterGroup>
-    </MapContainer>
+        ) : (
+          alert("Geolocation is not enabled or available.")
+        )}
+
+        <MarkerClusterGroup
+          chunkedLoading
+          iconCreateFunction={customClusterIcon}
+        >
+          {hotspotList.map((marker, i) => (
+            <Marker
+              key={i}
+              position={[marker.Latitude, marker.Longitude]}
+              icon={customIcon}
+            >
+              <Popup>
+                <strong>Location:</strong> {marker.Location}, {marker.Postcode}
+                <br />
+                <strong>Wifi:</strong> {marker.SSID}, {marker.Type} <br />
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${marker.Latitude},${marker.Longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open in Google Maps
+                </a>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      </MapContainer>
+
+      {/* Hotspot List */}
+      <div className="hotspot-list">
+        <h2>Hotspots Listing</h2>
+        <ul>
+          {hotspotList.map((marker, index) => (
+            <li key={index}>
+              <strong>{marker.SSID}</strong> - {marker.Location},{" "}
+              {marker.Postcode} <br />
+              <span>Provider: {marker.Type}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 });
 
